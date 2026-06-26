@@ -1,120 +1,111 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-import { Badge } from "@/components/ui/badge";
-
-type ReactionHistory = {
+type Substance = {
   id: string;
-  equation: string;
-  reagents: string;
-  products: string;
-  isBalanced: boolean;
+  name: string;
+  formula: string;
 };
 
 export default function Dashboard() {
-  const [history, setHistory] = useState<ReactionHistory[]>([]);
+  const [substances, setSubstances] = useState<Substance[]>([]);
+  const [search, setSearch] = useState("");
 
+  async function load() {
+    const res = await fetch("http://localhost:5500/api/substances", {
+      credentials: "include",
+    });
 
-  
+    const data = await res.json();
+    setSubstances(data);
+  }
+
   useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch("http://localhost:5500/api/history", {
-          credentials: "include",
-        });
-
-        const data = await res.json();
-        setHistory(data);
-      } catch (err) {
-        console.log("Erro ao buscar histórico:", err);
-      }
-    }
-
     load();
   }, []);
 
-  const total = history.length;
-  const balanced = history.filter((h) => h.isBalanced).length;
-  const notBalanced = total - balanced;
+  async function handleDelete(id: string) {
+    await fetch(`http://localhost:5500/api/substances/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    load();
+  }
+
+  const filtered = substances.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
+    item.formula.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-6 pt-0">
 
    
-      <div className="grid gap-4 md:grid-cols-3">
+      <Card>
+        <CardHeader>
+          <CardTitle>Total de Substâncias</CardTitle>
+        </CardHeader>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Total de Reações</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-bold">
-            {total}
-          </CardContent>
-        </Card>
+        <CardContent className="text-2xl font-bold">
+          {substances.length}
+        </CardContent>
+      </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Balanceadas</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-bold text-green-500">
-            {balanced}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Não Balanceadas</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-bold text-red-500">
-            {notBalanced}
-          </CardContent>
-        </Card>
-
-      </div>
+    <Input
+        placeholder="Pesquisar substância ou fórmula..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="max-w-md"
+      />
 
 
       <Card className="flex-1">
         <CardHeader>
-          <CardTitle>Histórico de Reações 🧪</CardTitle>
+          <CardTitle>Substâncias 🧪</CardTitle>
         </CardHeader>
 
         <CardContent className="space-y-4">
 
-          {history.length === 0 ? (
+          {filtered.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              Nenhuma reação registrada ainda.
+              Nenhuma substância encontrada.
             </p>
           ) : (
-            history.map((item) => (
+            filtered.map((item) => (
               <div
                 key={item.id}
-                className="border rounded-lg p-4 space-y-1"
+                className="flex items-center justify-between border rounded-lg p-4"
               >
-                <div className="flex justify-between items-center">
-                  <p className="font-medium">{item.equation}</p>
-
-                  <Badge
-                    variant={item.isBalanced ? "default" : "destructive"}
-                  >
-                    {item.isBalanced ? "Balanceada" : "Não balanceada"}
-                  </Badge>
+                <div>
+                  <p className="font-semibold">{item.name}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {item.formula}
+                  </p>
                 </div>
 
-                <p className="text-sm text-muted-foreground">
-                  Reagentes: {item.reagents}
-                </p>
+                <div className="flex gap-2">
 
-                <p className="text-sm text-muted-foreground">
-                  Produtos: {item.products}
-                </p>
+                  <Link href={`/substances?id=${item.id}`}>
+                    <Button variant="outline">
+                      Editar
+                    </Button>
+                  </Link>
+
+                  <Button
+                    variant="destructive"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    Excluir
+                  </Button>
+
+                </div>
               </div>
             ))
           )}

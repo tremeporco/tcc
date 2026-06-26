@@ -7,6 +7,7 @@ import {
   Settings,
   Search,
   LogOut,
+  TestTubeDiagonal,
 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
@@ -29,13 +30,17 @@ const navMain = [
     url: "/dashboard",
     icon: LayoutDashboard,
   },
-{
-  title: "Nova Reação",
-  url: "/",
-  icon: FlaskConical,
-}
+  {
+    title: "Nova Reação",
+    url: "/",
+    icon: FlaskConical,
+  },
+  {
+    title: "Substâncias",
+    url: "/substances",
+    icon: TestTubeDiagonal,
+  },
 ];
-
 const navSecondary = [
   {
     title: "Configurações",
@@ -95,6 +100,8 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
       {/* 🧬 NAV */}
       <SidebarContent>
         <NavMain items={navMain} />
+
+
 
         <NavSecondary
           items={navSecondary}
