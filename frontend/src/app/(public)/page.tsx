@@ -1,20 +1,31 @@
-import TopBar from "@/components/topbar";
-import Textbalance from  "@/components/balanceador"
+"use client";
 
-export default function Home() {
+import Textbalance from "@/components/balanceador";
+
+export default function EstequiometriaPage() {
   return (
-<div className="min-h-screen bg-linear-to-br from-cyan-500 via-blue-700 to-indigo-900 flex flex-col overflow-hidden">
-      <main className="flex flex-1 items-center justify-center p-6">
-<div className="w-full max-w-md bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/30">            
-          <h1 className="text-2xl text-black font-bold mb-4 text-center">
-      Balanceador
+    <main className="min-h-screen bg-slate-950 text-white p-6 md:p-10">
+      <div className="max-w-6xl mx-auto">
+
+        <div className="mb-10">
+          <p className="text-cyan-400 font-medium">
+            MolVision • Estequiometria
+          </p>
+
+          <h1 className="text-4xl md:text-5xl font-bold mt-2">
+            Cálculos estequiométricos
           </h1>
 
-          <Textbalance />
-
+          <p className="text-slate-400 mt-3 max-w-2xl">
+            Balanceie uma reação química e utilize seus
+            coeficientes para realizar cálculos de massa,
+            quantidade de matéria, partículas e volume.
+          </p>
         </div>
-      </main>
 
-    </div>
+        <Textbalance />
+
+      </div>
+    </main>
   );
 }

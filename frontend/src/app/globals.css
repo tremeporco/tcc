@@ -142,3 +142,9 @@
     @apply font-sans;
   }
 }
+
+:root {
+  --mol-background: #020617;
+  --mol-button: #06b6d4;
+  --mol-topbar: #020617;
+}

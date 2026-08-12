@@ -8,6 +8,7 @@ import {
   Search,
   LogOut,
   TestTubeDiagonal,
+  Grid2x2Plus,
 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
@@ -35,23 +36,14 @@ const navMain = [
     url: "/",
     icon: FlaskConical,
   },
-  {
-    title: "Substâncias",
-    url: "/substances",
-    icon: TestTubeDiagonal,
+ {
+    title: "Tabela Periódica",
+    url: "/tabela",
+    icon: Grid2x2Plus ,
   },
 ];
 const navSecondary = [
-  {
-    title: "Configurações",
-    url: "#",
-    icon: Settings,
-  },
-  {
-    title: "Pesquisar",
-    url: "#",
-    icon: Search,
-  },
+  
   {
     title: "Sair",
     url: "#",
@@ -89,7 +81,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
-      {/* 🧪 HEADER */}
+     
       <SidebarHeader>
         <div className="flex items-center gap-2 px-3 py-2">
           <FlaskConical className="w-5 h-5 text-primary" />

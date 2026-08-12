@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { CirclePlus, Mail } from "lucide-react";
 
 import {
   SidebarGroup,
@@ -20,26 +19,11 @@ type NavItem = {
 export function NavMain({ items }: { items: NavItem[] }) {
   return (
     <SidebarGroup>
-      <SidebarGroupContent className="flex flex-col gap-2">
-
-        {/* QUICK ACTION */}
+      <SidebarGroupContent>
         <SidebarMenu>
-          <SidebarMenuItem className="flex items-center gap-2">
+          <SidebarMenuItem>
 
-            <SidebarMenuButton
-              tooltip="Quick Create"
-              className="min-w-8 bg-primary text-primary-foreground hover:bg-primary/90"
-            >
-              <CirclePlus />
-              <span>Quick Create</span>
-            </SidebarMenuButton>
-
-            <SidebarMenuButton asChild>
-              <Link href="/dashboard">
-                <Mail />
-                <span className="sr-only">Inbox</span>
-              </Link>
-            </SidebarMenuButton>
+           
 
           </SidebarMenuItem>
         </SidebarMenu>

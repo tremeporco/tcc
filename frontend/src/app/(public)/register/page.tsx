@@ -28,7 +28,7 @@ export default function RegisterForm() {
 
   const router = useRouter();
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: { preventDefault: () => void; }) {
     e.preventDefault();
     setError("");
 
@@ -61,7 +61,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:50px_50px]">
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-size-[50px_50px]">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Criar Conta</CardTitle>

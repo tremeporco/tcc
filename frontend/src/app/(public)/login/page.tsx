@@ -24,7 +24,7 @@ export default function Login() {
 
   const router = useRouter()
 
-  async function handleLogin(e) {
+  async function handleLogin(e: { preventDefault: () => void }) {
     e.preventDefault()
     setError("")
     setLoading(true)
@@ -45,7 +45,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:50px_50px]">
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-size-[50px_50px]">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Login</CardTitle>

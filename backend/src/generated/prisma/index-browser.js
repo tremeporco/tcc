@@ -24,12 +24,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.7.0
- * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 Prisma.prismaVersion = {
-  client: "7.7.0",
-  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -122,23 +122,12 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   email: 'email',
+  name: 'name',
   emailVerified: 'emailVerified',
-  image: 'image',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.SessionScalarFieldEnum = {
-  id: 'id',
-  token: 'token',
-  userId: 'userId',
-  expiresAt: 'expiresAt',
-  ipAddress: 'ipAddress',
-  userAgent: 'userAgent',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  avatar: 'avatar'
 };
 
 exports.Prisma.ReactionHistoryScalarFieldEnum = {
@@ -147,17 +136,11 @@ exports.Prisma.ReactionHistoryScalarFieldEnum = {
   reagents: 'reagents',
   products: 'products',
   equation: 'equation',
-  isBalanced: 'isBalanced',
+  is_balanced: 'is_balanced',
   temperature: 'temperature',
   pressure: 'pressure',
-  reactionType: 'reactionType',
+  reaction_type: 'reaction_type',
   createdAt: 'createdAt'
-};
-
-exports.Prisma.SubstanceScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  formula: 'formula'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -165,22 +148,18 @@ exports.Prisma.AccountScalarFieldEnum = {
   accountId: 'accountId',
   providerId: 'providerId',
   userId: 'userId',
-  accessToken: 'accessToken',
-  refreshToken: 'refreshToken',
-  idToken: 'idToken',
-  accessTokenExpiresAt: 'accessTokenExpiresAt',
-  refreshTokenExpiresAt: 'refreshTokenExpiresAt',
-  scope: 'scope',
   password: 'password',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.VerificationScalarFieldEnum = {
+exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
-  identifier: 'identifier',
-  value: 'value',
+  token: 'token',
   expiresAt: 'expiresAt',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -203,11 +182,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Session: 'Session',
   ReactionHistory: 'ReactionHistory',
-  Substance: 'Substance',
   Account: 'Account',
-  Verification: 'Verification'
+  Session: 'Session'
 };
 
 /**
