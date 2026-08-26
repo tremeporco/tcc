@@ -1,4 +1,8 @@
-import { getCompound, getElement } from "../services/pubchem.js";
+import {
+  getCompound,
+  searchCompoundSuggestions,
+  getElement,
+} from "../services/pubchem.js";
 
 export async function searchCompound(req, res) {
   try {
@@ -10,6 +14,27 @@ export async function searchCompound(req, res) {
   } catch (error) {
     res.status(404).json({
       error: error.message,
+    });
+  }
+}
+
+export async function suggestCompounds(req, res) {
+  try {
+    const { q } = req.query;
+
+    if (!q || q.trim().length < 3) {
+      return res.json([]);
+    }
+
+    const suggestions =
+      await searchCompoundSuggestions(q);
+
+    res.json(suggestions);
+  } catch (error) {
+    console.error("Erro nas sugestões:", error);
+
+    res.status(500).json({
+      error: "Erro ao buscar sugestões",
     });
   }
 }

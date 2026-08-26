@@ -2,10 +2,8 @@
 
 import {
   BadgeCheck,
-  Bell,
   ChevronsUpDown,
   CreditCard,
-  LogOut,
   Sparkles,
 } from "lucide-react";
 
@@ -93,19 +91,9 @@ export function NavUser({ user }: Props) {
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
-              
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
             </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
-
-            <DropdownMenuItem>
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

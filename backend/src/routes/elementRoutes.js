@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { searchElement } from "../controllers/pubchemController.js";
+    import { Router } from "express";
+    import { searchElement } from "../controllers/pubchemController.js";
 
-const router = Router();
+    const router = Router();
 
-router.get("/:number", searchElement);
+    router.get("/:number", searchElement);
 
-export default router;
+    export default router;

@@ -6,6 +6,7 @@ import {
   FlaskConical,
   Settings,
   Search,
+  CopyX,
   LogOut,
   TestTubeDiagonal,
   Grid2x2Plus,
@@ -35,6 +36,11 @@ const navMain = [
     title: "Nova Reação",
     url: "/",
     icon: FlaskConical,
+  },
+   {
+    title: "Estequiometria",
+    url: "/estequiometria",
+    icon: CopyX ,
   },
  {
     title: "Tabela Periódica",

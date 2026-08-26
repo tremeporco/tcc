@@ -58,12 +58,12 @@ export default function Dashboard() {
         </CardContent>
       </Card>
 
-      <Input
-        placeholder="Pesquisar reação..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="max-w-md"
-      />
+        <Input
+          placeholder="Pesquisar reação..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="max-w-md"
+        />
 
       <div className="grid grid-cols-1 gap-4">
 

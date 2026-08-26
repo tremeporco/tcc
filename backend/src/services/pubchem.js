@@ -13,15 +13,15 @@ export async function getCompound(name) {
       iupac: properties.IUPACName ?? null,
       formula: properties.MolecularFormula ?? null,
       weight: properties.MolecularWeight ?? null,
-      smiles: properties.CanonicalSMILES ?? null,
     };
   }
 
+  // Busca por fórmula
   try {
     const formulaUrl =
       `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/fastformula/${encodeURIComponent(
         name
-      )}/property/IUPACName,MolecularFormula,MolecularWeight,CanonicalSMILES/JSON`;
+      )}/property/IUPACName,MolecularFormula,MolecularWeight/JSON`;
 
     const formulaResponse = await fetch(formulaUrl);
 
@@ -30,11 +30,12 @@ export async function getCompound(name) {
     }
   } catch {}
 
+  // Busca por nome
   try {
     const nameUrl =
       `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(
         name
-      )}/property/IUPACName,MolecularFormula,MolecularWeight,CanonicalSMILES/JSON`;
+      )}/property/IUPACName,MolecularFormula,MolecularWeight/JSON`;
 
     const response = await fetch(nameUrl);
 
@@ -45,6 +46,29 @@ export async function getCompound(name) {
 
   throw new Error("Composto não encontrado");
 }
+
+
+export async function searchCompoundSuggestions(query) {
+  if (!query || query.trim().length < 3) {
+    return [];
+  }
+
+  const encodedQuery = encodeURIComponent(query.trim());
+
+  const url =
+    `https://pubchem.ncbi.nlm.nih.gov/rest/autocomplete/compound/${encodedQuery}/json`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("Erro ao consultar sugestões no PubChem");
+  }
+
+  const data = await response.json();
+
+  return data?.dictionary_terms?.compound ?? [];
+}
+
 
 export async function getCompounds(names) {
   const results = [];
@@ -68,6 +92,7 @@ export async function getCompounds(names) {
   return results;
 }
 
+
 function normalizeHeading(value) {
   if (typeof value !== "string") {
     return "";
@@ -78,6 +103,7 @@ function normalizeHeading(value) {
     .toLowerCase()
     .replace(/\s+/g, " ");
 }
+
 
 function findSection(sections, heading) {
   if (!Array.isArray(sections)) {
@@ -110,6 +136,7 @@ function findSection(sections, heading) {
 
   return null;
 }
+
 
 function getSectionValue(section) {
   if (!section) {
@@ -181,6 +208,7 @@ function getSectionValue(section) {
   return null;
 }
 
+
 function electronVoltToKjMol(property) {
   if (
     !property ||
@@ -203,6 +231,7 @@ function electronVoltToKjMol(property) {
     unit: "kJ/mol",
   };
 }
+
 
 export async function getElement(atomicNumber) {
   try {

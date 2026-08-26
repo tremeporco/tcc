@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Field,
@@ -10,6 +11,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
 import {
   Card,
   CardContent,
@@ -34,6 +36,8 @@ interface BalanceResponse {
 }
 
 export default function Textbalance() {
+  const router = useRouter();
+
   const [equation, setEquation] = useState("");
   const [result, setResult] = useState("");
   const [compounds, setCompounds] = useState<Compound[]>([]);
@@ -90,6 +94,16 @@ export default function Textbalance() {
     setEquation("");
     setResult("");
     setCompounds([]);
+  }
+
+  function handleStoichiometry() {
+    if (!result) {
+      return;
+    }
+
+    router.push(
+      `/estequiometria?equation=${encodeURIComponent(result)}`
+    );
   }
 
   return (
@@ -211,6 +225,7 @@ export default function Textbalance() {
               p-5
               text-center
             ">
+
               <p className="text-sm text-slate-500 mb-2">
                 Equação balanceada
               </p>
@@ -224,6 +239,21 @@ export default function Textbalance() {
               ">
                 {result}
               </p>
+
+              {/* Botão para estequiometria */}
+              <Button
+                onClick={handleStoichiometry}
+                className="
+                  mt-5
+                  bg-cyan-500
+                  text-slate-950
+                  hover:bg-cyan-400
+                  font-semibold
+                "
+              >
+                Calcular estequiometria
+              </Button>
+
             </div>
 
           </CardContent>
@@ -268,6 +298,7 @@ export default function Textbalance() {
                   <div className="flex items-start justify-between gap-3 mb-4">
 
                     <div>
+
                       <h3 className="text-lg font-semibold text-white">
                         {compound.name}
                       </h3>
@@ -277,6 +308,7 @@ export default function Textbalance() {
                           {compound.formula}
                         </p>
                       )}
+
                     </div>
 
                   </div>

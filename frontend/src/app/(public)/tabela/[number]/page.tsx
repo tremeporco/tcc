@@ -8,8 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import PeriodicTable from "@/components/periodicTable";
 
 interface ElementData {
+  ionization_energies: number[];
   number: number;
   category: string;
   xpos: number;
@@ -43,8 +45,7 @@ interface PubChemElement {
   electron_configuration?: PubChemProperty | null;
   electronegativity?: PubChemProperty | null;
   electron_affinity?: PubChemProperty | null;
-  atomic_radius?: PubChemProperty | null;
-  oxidation_states?: PubChemProperty | null;
+  atomic_radius?: PubChemProperty | null;  oxidation_states?: PubChemProperty | null;
 }
 
 interface PageProps {
@@ -166,11 +167,13 @@ export default async function ElementPage({
     pubchem?.atomic_radius
   );
 
-
+ 
   const oxidationStates = getValue(
     selectedElement.oxidation_states,
     pubchem?.oxidation_states
   );
+
+  const ionizationEnergy = selectedElement.ionization_energies?.[0];
 
 console.log(selectedElement.bohr_model_image);
   return (
@@ -260,6 +263,13 @@ console.log(selectedElement.bohr_model_image);
           <Info
             label="Estados de oxidação"
             value={oxidationStates}
+          />
+
+
+
+          <Info
+            label="Energia de ionização"
+            value={ionizationEnergy}
           />
 
         </Section>

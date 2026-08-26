@@ -43,21 +43,20 @@ export default function PeriodicTable() {
   return (
     <div className="w-full p-6 md:p-1">
 
-      <div className="w-full overflow-x-auto overflow-y-visible py-4">
-        <div  
-          className="
-            grid
-            gap-1
-            w-full
-            min-w-175
-            md:min-w-225
-            lg:min-w-full
-            relative
-          "
-          style={{
-            gridTemplateColumns: "repeat(18, minmax(0, 1fr))",
-          }}
-        >
+     <div className="w-full overflow-x-auto overflow-y-hidden py-4">
+       <div
+  className="
+    grid
+    gap-1
+    w-full
+    min-w-300
+    relative
+    overflow-hidden
+  "
+  style={{
+    gridTemplateColumns: "repeat(18, minmax(0, 1fr))",
+  }}
+>
 
           {elements.map((element) => (
             <Link
@@ -67,30 +66,31 @@ export default function PeriodicTable() {
                 gridColumn: element.xpos,
                 gridRow: element.ypos,
               }}
-              className={`
-                aspect-square
-                rounded-md
-                border
-                shadow-sm
-                hover:scale-103
-                hover:shadow-xl
-                transition-transform
-                relative
-                z-20
-                flex
-                flex-col
-                items-center
-                justify-center
-                overflow-visible
-                p-1
+            className={`
+  aspect-square
+  rounded-md
+  border
+  shadow-sm
+  hover:scale-102
+  hover:shadow-xl
+  hover:z-50
+  transform-gpu
+  transition-all
+  relative
+  z-10
+  flex
+  flex-col
+  items-center
+  justify-center
+  overflow-visible
+  p-1
 
-                text-[8px]
-                sm:text-[10px]
-                md:text-xs
+  text-[8px]
+  sm:text-[10px]
+  md:text-xs
 
-                ${colors[element.category] ?? "bg-gray-300"}
-              `}
-            >
+  ${colors[element.category] ?? "bg-gray-300"}
+`} >
 
               <span className="opacity-70">
                 {element.number}
