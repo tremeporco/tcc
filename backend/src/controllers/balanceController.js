@@ -2,7 +2,6 @@ import { balanceEquation } from "../services/balancer.js";
 import { getCompounds } from "../services/pubchem.js";
 import { prisma } from "../lib/prisma.js";
 
-
 function extractCompounds(equation) {
   return equation
     .split(/[+=]/)
@@ -12,11 +11,8 @@ function extractCompounds(equation) {
     .filter(Boolean);
 }
 
-
 export async function balance(req, res) {
   try {
-    console.log("Entrou na rota de balanceamento");
-
     const { equation } = req.body;
 
     if (!equation) {
@@ -25,21 +21,21 @@ export async function balance(req, res) {
       });
     }
 
-
+    // 1. Balanceia primeiro
     const result = balanceEquation(equation);
 
     console.log("Resultado:", result);
     console.log("Usuário:", req.user);
 
-
+    // 2. Extrai os compostos
     const compounds = extractCompounds(result);
 
     console.log("Compostos encontrados:", compounds);
 
-
+    // 3. Consulta o PubChem com intervalo entre requisições
     const pubchemData = await getCompounds(compounds);
 
-
+    // 4. Salva no histórico
     if (req.user) {
       await prisma.reactionHistory.create({
         data: {
@@ -54,12 +50,10 @@ export async function balance(req, res) {
       console.log("Histórico salvo!");
     }
 
-
     return res.json({
       result,
       compounds: pubchemData
     });
-
 
   } catch (error) {
     console.error(error);

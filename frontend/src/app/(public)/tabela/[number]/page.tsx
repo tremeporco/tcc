@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import PeriodicTable from "@/components/periodicTable";
 
 interface ElementData {
   ionization_energies: number[];
@@ -18,18 +17,15 @@ interface ElementData {
   ypos: number;
   symbol: string;
   name: string;
-
+  electronegativity_pauling?: number;
   atomic_mass?: number;
   density?: number;
-
+  melt?: number;
+  boil?: number;
   bohr_model_image?: string;
   bohr_model_3d?: string;
-
   electron_configuration?: string | number;
-  electronegativity?: string | number;
   electron_affinity?: string | number;
-  atomic_radius?: string | number;
-  oxidation_states?: string | number;
 }
 
 interface PubChemProperty {
@@ -38,13 +34,6 @@ interface PubChemProperty {
 }
 
 interface PubChemElement {
-  density?: PubChemProperty | null;
-  melting_point?: PubChemProperty | null;
-  boiling_point?: PubChemProperty | null;
-
-  electron_configuration?: PubChemProperty | null;
-  electronegativity?: PubChemProperty | null;
-  electron_affinity?: PubChemProperty | null;
   atomic_radius?: PubChemProperty | null;  oxidation_states?: PubChemProperty | null;
 }
 
@@ -130,52 +119,34 @@ export default async function ElementPage({
   );
 
 
-  const density = getValue(
-    selectedElement.density,
-    pubchem?.density
-  );
+  const density = selectedElement.density ?? null;
 
 
-  const meltingPoint =
-    pubchem?.melting_point ?? null;
+  const meltingPoint = selectedElement.melt ?? null;
 
 
-  const boilingPoint =
-    pubchem?.boiling_point ?? null;
+  const boilingPoint = selectedElement.boil ?? null;
 
 
-  const electronConfiguration = getValue(
-    selectedElement.electron_configuration,
-    pubchem?.electron_configuration
-  );
+  const electronConfiguration =  selectedElement.electron_configuration ?? null;
+ 
 
 
-  const electronegativity = getValue(
-    selectedElement.electronegativity,
-    pubchem?.electronegativity
-  );
+  const electronegativity =selectedElement.electronegativity_pauling ?? null;
 
 
-  const electronAffinity = getValue(
-    selectedElement.electron_affinity,
-    pubchem?.electron_affinity
-  );
+  const electronAffinity =  selectedElement.electron_affinity ?? null;
 
 
-  const atomicRadius = getValue(
-    selectedElement.atomic_radius,
-    pubchem?.atomic_radius
-  );
+
+  const atomicRadius = pubchem?.atomic_radius;
+ 
 
  
-  const oxidationStates = getValue(
-    selectedElement.oxidation_states,
-    pubchem?.oxidation_states
-  );
+  const oxidationStates = pubchem?.oxidation_states ?? null;
 
-  const ionizationEnergy = selectedElement.ionization_energies?.[0];
+  const ionizationEnergy = selectedElement.ionization_energies ?? [];
 
-console.log(selectedElement.bohr_model_image);
   return (
     <main className="min-h-screen bg-slate-950 text-white p-6 md:p-10">
 
@@ -266,11 +237,14 @@ console.log(selectedElement.bohr_model_image);
           />
 
 
-
-          <Info
-            label="Energia de ionização"
-            value={ionizationEnergy}
-          />
+<Info
+  label="Energias de ionização"
+  value={
+    ionizationEnergy.length > 0
+      ? ionizationEnergy.join(", ")
+      : null
+  }
+/>
 
         </Section>
 
