@@ -1,6 +1,6 @@
 import {
   calculateStoichiometry,
-} from "../services/stoichiometryService.js";
+} from "../services/stoichiometry.js";
 
 import elementsData from "../data/periodicTable.json" with {
   type: "json",

@@ -1,4 +1,4 @@
-const PUBCHEM_DELAY = 500;
+const PUBCHEM_DELAY = 400;
 const PUBCHEM_RETRIES = 3;
 
 function wait(ms) {

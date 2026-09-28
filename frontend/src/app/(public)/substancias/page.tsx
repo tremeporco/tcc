@@ -147,7 +147,7 @@ export default function SubstancePage() {
           </h1>
 
           <p className="text-slate-400 mt-3 max-w-2xl">
-            Consulte informações químicas de até 3 milhões
+            Consulte informações químicas de até 349 milhões
             de substâncias.
           </p>
 
